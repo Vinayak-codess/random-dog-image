@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Ajax</title>
+    <style>
+        body{
+            font-size:2rem;
+            background-color:#2f1313;
+            color:#f9f3b9;
+        }
+        #btn{
+            background-color:#8c6239;
+            border-radius:20px;
+            font-size:5vh
+        }
+        #img{
+            display:none;
+            width: 70vw;
+        }
+    </style>
+</head>
+<body>
+    <img src="" alt="dog" id="img" >
+    <br>
+    <button onClick="dog()" id="btn">Click to View Image of a Dog</button>
+</body>
+
+<script>
+
+    // Ajax = Asynchronous Javascirpt and XML
+
+    function dog() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200){ // readyState 4 means the response from the server is recived and ready to display status 200 means html is ok also this refers to xhr here
+                var response = JSON.parse(xhr.responseText)
+                var data = response.message;
+                image = document.getElementById("img");
+                image.src = response.message;
+                image.style.display = "block"
+            }
+        }
+        
+        xhr.open("GET", "https://dog.ceo/api/breeds/image/random");
+        xhr.send();
+    };
+
+
+
+</script>
+
+</html>
+
